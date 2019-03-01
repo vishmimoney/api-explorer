@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
-class ListView extends Component {
+class BlogsList extends Component {
     render() {
         return (
             <>
-                <div class="row">
-                    <div class="col s12 m12">
+                <div className="row">
+                    <div className="col s12 m12">
                         <h4>Blogs</h4>
                     </div>
-                    <div class="col s12 m12">
+                    <div className="col s12 m12">
                         <table>
                             <thead>
                                 <tr>
@@ -48,12 +48,12 @@ class ListView extends Component {
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active grey darken-2"><a href="#!">1</a></li>
+                <div className="row">
+                    <ul className="pagination">
+                        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+                        <li className="active grey darken-2"><a href="#!">1</a></li>
                         <li><a href="#!">2</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                        <li className="waves-effect"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
                     </ul>
                 </div>
             </>
@@ -61,4 +61,4 @@ class ListView extends Component {
     }
 }
 
-export default ListView;
+export default BlogsList;

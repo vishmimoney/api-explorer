@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class DetailView extends Component {
+class BlogDetails extends Component {
     render() {
         return (
             <>
@@ -60,4 +60,4 @@ class DetailView extends Component {
     }
 }
 
-export default DetailView;
+export default BlogDetails;

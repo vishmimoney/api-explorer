@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
     render() {
@@ -11,10 +12,10 @@ class Header extends Component {
                     <nav>
                         <div className="nav-wrapper grey darken-2">
                             <ul id="nav-mobile" className="left hide-on-med-and-down">
-                                <li><a href="#/">Blogs</a></li>
-                                <li><a href="#/">Entries</a></li>
-                                <li><a href="#/">Authors</a></li>
-                                <li><a href="#/">Comments</a></li>
+                                <li><Link to="/">Blogs</Link>></li>
+                                <li><Link to="/entries">Entries</Link>></li>
+                                <li><Link to="/authors">Authors</Link>></li>
+                                <li><Link to="/comments">Comments</Link>></li>
                             </ul>
                         </div>
                     </nav>
