@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { getBlogs } from '../../actions/blogs';
 
 class BlogsList extends Component {
+    componentDidMount() {
+        this.props.getBlogs();
+    };
+    
     render() {
         return (
             <>
@@ -20,30 +26,17 @@ class BlogsList extends Component {
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>$3.76</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>$7.00</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
+                            {
+                                this.props.blogs && this.props.blogs.map((blog , i) => {
+                                return ( 
+                                    <tr key={i}>
+                                        <td>{blog.id}</td>
+                                        <td>{blog.attributes.name}</td>
+                                        <td>{blog.relationships.tagline}</td>
+                                        <td>{blog.relationships.tags[0]}</td>
+                                    </tr>
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
@@ -61,4 +54,10 @@ class BlogsList extends Component {
     }
 }
 
-export default BlogsList;
+const mapStateToProps = (state) => {
+    return {
+        blogs: state.blogs
+    };
+}
+
+export default connect(mapStateToProps, { getBlogs })(BlogsList);
