@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-
+import { connect } from 'react-redux';
+import { getEntries } from '../../actions/entries';
 class EntriesList extends Component {
+    componentDidMount() {
+        this.props.getEntries();
+    };
+
     render() {
         return (
             <>
@@ -13,37 +18,26 @@ class EntriesList extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Tagline</th>
-                                    <th>Tags</th>
+                                    <th>Headline</th>
+                                    <th>Body</th>
+                                    <th>Published Date</th>
+                                    <th>Modified Date</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>$3.76</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>$7.00</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
+                            {
+                                this.props.entries && this.props.entries.map((entry , i) => {
+                                return ( 
+                                    <tr key={i}>
+                                        <td>{entry.id}</td>
+                                        <td>{entry.attributes.headline}</td>
+                                        <td>{entry.attributes.bodyText}</td>
+                                        <td>{entry.attributes.modDate}</td>
+                                        <td>{entry.attributes.pubDate}</td>
+                                    </tr>
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
@@ -61,4 +55,10 @@ class EntriesList extends Component {
     }
 }
 
-export default EntriesList;
+const mapStateToProps = (state) => {
+    return {
+        entries: state.entries
+    };
+}
+
+export default connect(mapStateToProps, { getEntries })(EntriesList);

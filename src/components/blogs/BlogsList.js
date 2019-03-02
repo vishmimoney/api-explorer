@@ -20,8 +20,6 @@ class BlogsList extends Component {
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Tagline</th>
-                                    <th>Tags</th>
                                 </tr>
                             </thead>
 
@@ -32,8 +30,6 @@ class BlogsList extends Component {
                                     <tr key={i}>
                                         <td>{blog.id}</td>
                                         <td>{blog.attributes.name}</td>
-                                        <td>{blog.relationships.tagline}</td>
-                                        <td>{blog.relationships.tags[0]}</td>
                                     </tr>
                                 );
                             })}

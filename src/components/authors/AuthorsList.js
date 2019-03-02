@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { getAuthors } from '../../actions/authors';
 
 class AuthorsList extends Component {
+    componentDidMount() {
+        this.props.getAuthors();
+    };
+
     render() {
         return (
             <>
@@ -13,37 +19,22 @@ class AuthorsList extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Email</th>
                                     <th>Name</th>
-                                    <th>Tagline</th>
-                                    <th>Tags</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>$3.76</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>$7.00</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
+                            {
+                                this.props.authors && this.props.authors.map((author , i) => {
+                                return ( 
+                                    <tr key={i}>
+                                        <td>{author.id}</td>
+                                        <td>{author.attributes.name}</td>
+                                        <td>{author.attributes.email}</td>
+                                    </tr>
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
@@ -61,4 +52,10 @@ class AuthorsList extends Component {
     }
 }
 
-export default AuthorsList;
+const mapStateToProps = (state) => {
+    return {
+        authors: state.authors
+    };
+}
+
+export default connect(mapStateToProps, { getAuthors })(AuthorsList);

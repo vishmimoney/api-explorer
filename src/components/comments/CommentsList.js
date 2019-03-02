@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-
+import { connect } from 'react-redux';
+import { getComments } from '../../actions/comments';
 class CommentsList extends Component {
+    componentDidMount() {
+        this.props.getComments();
+    };
+
     render() {
         return (
             <>
@@ -13,37 +18,20 @@ class CommentsList extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Tagline</th>
-                                    <th>Tags</th>
+                                    <th>Comment</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>$3.76</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>$7.00</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                    <td>$0.87</td>
-                                </tr>
+                            {
+                                this.props.comments && this.props.comments.map((comment , i) => {
+                                return ( 
+                                    <tr key={i}>
+                                        <td>{comment.id}</td>
+                                        <td>{comment.attributes.body}</td>
+                                    </tr>
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
@@ -61,4 +49,10 @@ class CommentsList extends Component {
     }
 }
 
-export default CommentsList;
+const mapStateToProps = (state) => {
+    return {
+        comments: state.comments
+    };
+}
+
+export default connect(mapStateToProps, { getComments })(CommentsList);

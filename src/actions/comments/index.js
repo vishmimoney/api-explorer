@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const apiRootPath = 'http://localhost:3100';
 
-export const getBlogs = () => {
+export const getComments = () => {
 
     return (dispatch) => {
-        axios.get(`${apiRootPath}/blogs?format=vnd.api%2Bjson`)
+        axios.get(`${apiRootPath}/comments?format=vnd.api%2Bjson`)
         .then((res) => {
             dispatch({
-                type: actionTypes.GET_BLOGS,
-                blogs: res.data.data
+                type: actionTypes.GET_COMMENTS,
+                comments: res.data.data
             });
         })
         .catch((err) => console.log(err));
