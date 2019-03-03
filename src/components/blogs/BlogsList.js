@@ -1,11 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Link } from  'react-router-dom';
 import { connect } from 'react-redux';
-import { getBlogs } from '../../actions/blogs';
+import { getBlogs, setSelectedBlog } from '../../actions/blogs';
 
 class BlogsList extends Component {
     componentDidMount() {
         this.props.getBlogs();
     };
+
+    handleBlogSelection(id) {
+        this.props.setSelectedBlog(id);
+    }
     
     render() {
         return (
@@ -29,7 +34,7 @@ class BlogsList extends Component {
                                 return ( 
                                     <tr key={i}>
                                         <td>{blog.id}</td>
-                                        <td>{blog.attributes.name}</td>
+                                        <td><Link to={`/blogs/${blog.id}?format=vnd.api%2Bjson`} onClick={this.handleBlogSelection.bind(this, blog.id)}>{blog.attributes.name}</Link></td>
                                     </tr>
                                 );
                             })}
@@ -56,4 +61,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { getBlogs })(BlogsList);
+export default connect(mapStateToProps, { getBlogs, setSelectedBlog })(BlogsList);
