@@ -1,11 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Link } from  'react-router-dom';
 import { connect } from 'react-redux';
-import { getAuthors } from '../../actions/authors';
+import { getAuthors, setSelectedAuthor } from '../../actions/authors';
 
 class AuthorsList extends Component {
     componentDidMount() {
         this.props.getAuthors();
     };
+
+    handleAuthorSelection(id) {
+        this.props.setSelectedAuthor(id);
+    }
 
     render() {
         return (
@@ -30,7 +35,7 @@ class AuthorsList extends Component {
                                 return ( 
                                     <tr key={i}>
                                         <td>{author.id}</td>
-                                        <td>{author.attributes.name}</td>
+                                        <td><Link to={`/authors/${author.id}?format=vnd.api%2Bjson`} onClick={this.handleAuthorSelection.bind(this, author.id)}>{author.attributes.name}</Link></td>
                                         <td>{author.attributes.email}</td>
                                     </tr>
                                 );
@@ -58,4 +63,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { getAuthors })(AuthorsList);
+export default connect(mapStateToProps, { getAuthors, setSelectedAuthor })(AuthorsList);
