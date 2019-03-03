@@ -55,15 +55,14 @@ export const getCommentDetails = (id) => {
                     axios.get(authorUrl)
                         .then((res) => {
                             details.relationships.author = res.data.data;
-                            axios.get(entryUrl)
-                                .then((res) => {
-                                    details.relationships.entry = res.data.data;
-                                    dispatch({
-                                        type: actionTypes.GET_COMMENT_DETAILS,
-                                        commentDetails: details
-                                    });
-                                })
-                                .catch((err) => console.log(err));
+                            return axios.get(entryUrl)  
+                        })
+                        .then((res) => {
+                            details.relationships.entry = res.data.data;
+                            dispatch({
+                                type: actionTypes.GET_COMMENT_DETAILS,
+                                commentDetails: details
+                            });
                         })
                         .catch((err) => console.log(err));
                 }

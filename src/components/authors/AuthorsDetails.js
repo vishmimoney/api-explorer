@@ -27,7 +27,7 @@ class AuthorsDetails extends Component {
                             {this.props.selectedAuthor.details.relationships &&
                                 this.props.selectedAuthor.details.relationships.comments &&
                                 this.props.selectedAuthor.details.relationships.comments.map((comment, i) => {
-                                    return (<li className="collection-item">{comment.attributes.body}</li>);
+                                    return (<li className="collection-item" key={i}>{comment.attributes.body}</li>);
                                 })}
                         </div>
                         <div className="section">

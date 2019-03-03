@@ -31,18 +31,18 @@ class EntriesList extends Component {
                             </thead>
 
                             <tbody>
-                            {
-                                this.props.entries && this.props.entries.map((entry , i) => {
-                                return ( 
-                                    <tr key={i}>
-                                        <td><Link to={`/entries/${entry.id}?format=vnd.api%2Bjson`} onClick={this.handleEntrySelection.bind(this, entry.id)}>{entry.id}</Link></td>
-                                        <td>{entry.attributes.headline}</td>
-                                        <td>{entry.attributes.bodyText}</td>
-                                        <td>{entry.attributes.pubDate}</td>
-                                        <td>{entry.attributes.modDate}</td>
-                                    </tr>
-                                );
-                            })}
+                                {
+                                    this.props.entries && this.props.entries.map((entry, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <td><Link to={`/entries/${entry.id}?format=vnd.api%2Bjson`} onClick={this.handleEntrySelection.bind(this, entry.id)}>{entry.id}</Link></td>
+                                                <td>{entry.attributes.headline}</td>
+                                                <td>{entry.attributes.bodyText}</td>
+                                                <td>{entry.attributes.pubDate}</td>
+                                                <td>{entry.attributes.modDate}</td>
+                                            </tr>
+                                        );
+                                    })}
                             </tbody>
                         </table>
                     </div>

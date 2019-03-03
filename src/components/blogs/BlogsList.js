@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from  'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getBlogs, setSelectedBlog } from '../../actions/blogs';
 
@@ -11,7 +11,7 @@ class BlogsList extends Component {
     handleBlogSelection(id) {
         this.props.setSelectedBlog(id);
     }
-    
+
     render() {
         return (
             <>
@@ -27,17 +27,16 @@ class BlogsList extends Component {
                                     <th>Name</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                            {
-                                this.props.blogs && this.props.blogs.map((blog , i) => {
-                                return ( 
-                                    <tr key={i}>
-                                        <td>{blog.id}</td>
-                                        <td><Link to={`/blogs/${blog.id}?format=vnd.api%2Bjson`} onClick={this.handleBlogSelection.bind(this, blog.id)}>{blog.attributes.name}</Link></td>
-                                    </tr>
-                                );
-                            })}
+                                {
+                                    this.props.blogs && this.props.blogs.map((blog, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <td><Link to={`/blogs/${blog.id}?format=vnd.api%2Bjson`} onClick={this.handleBlogSelection.bind(this, blog.id)}>{blog.id}</Link></td>
+                                                <td>{blog.attributes.name}</td>
+                                            </tr>
+                                        );
+                                    })}
                             </tbody>
                         </table>
                     </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from  'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAuthors, setSelectedAuthor } from '../../actions/authors';
 
@@ -24,22 +24,22 @@ class AuthorsList extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Email</th>
                                     <th>Name</th>
+                                    <th>Email</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                            {
-                                this.props.authors && this.props.authors.map((author , i) => {
-                                return ( 
-                                    <tr key={i}>
-                                        <td>{author.id}</td>
-                                        <td><Link to={`/authors/${author.id}?format=vnd.api%2Bjson`} onClick={this.handleAuthorSelection.bind(this, author.id)}>{author.attributes.name}</Link></td>
-                                        <td>{author.attributes.email}</td>
-                                    </tr>
-                                );
-                            })}
+                                {
+                                    this.props.authors && this.props.authors.map((author, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <td><Link to={`/authors/${author.id}?format=vnd.api%2Bjson`} onClick={this.handleAuthorSelection.bind(this, author.id)}>{author.id}</Link></td>
+                                                <td>{author.attributes.name}</td>
+                                                <td>{author.attributes.email}</td>
+                                            </tr>
+                                        );
+                                    })}
                             </tbody>
                         </table>
                     </div>

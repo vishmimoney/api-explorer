@@ -4,7 +4,9 @@ import { getEntryDetails } from '../../actions/entries';
 
 class EntriesDetails extends Component {
     componentDidMount() {
-        this.props.getEntryDetails(this.props.selectedEntry.id);
+        if (this.props.selectedEntry.id) {
+            this.props.getEntryDetails(this.props.selectedEntry.id);
+        }
     }
 
     render() {

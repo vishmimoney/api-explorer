@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from  'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getComments, setSelectedComment } from '../../actions/comments';
 class CommentsList extends Component {
@@ -28,15 +28,15 @@ class CommentsList extends Component {
                             </thead>
 
                             <tbody>
-                            {
-                                this.props.comments && this.props.comments.map((comment , i) => {
-                                return ( 
-                                    <tr key={i}>
-                                        <td><Link to={`/comments/${comment.id}?format=vnd.api%2Bjson`} onClick={this.handleCommentSelection.bind(this, comment.id)}>{comment.id}</Link></td>
-                                        <td>{comment.attributes.body}</td>
-                                    </tr>
-                                );
-                            })}
+                                {
+                                    this.props.comments && this.props.comments.map((comment, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <td><Link to={`/comments/${comment.id}?format=vnd.api%2Bjson`} onClick={this.handleCommentSelection.bind(this, comment.id)}>{comment.id}</Link></td>
+                                                <td>{comment.attributes.body}</td>
+                                            </tr>
+                                        );
+                                    })}
                             </tbody>
                         </table>
                     </div>

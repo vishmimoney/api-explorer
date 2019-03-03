@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
-import { get } from 'http';
 
 const apiRootPath = 'http://localhost:8000';
 
@@ -49,33 +48,31 @@ export const getEntryDetails = (id) => {
                     Promise.all(authors.map((author) => {
                         return axios.get(`${apiRootPath}/authors/${author.id}?format=vnd.api%2Bjson`)
                     }))
-                    .then((authorsData) => {
-                        const authorsDetails = authorsData.map((authorData) => {
-                            return authorData.data.data;
-                        });                 
-                        details.relationships.authors = authorsDetails;
+                        .then((authorsData) => {
+                            const authorsDetails = authorsData.map((authorData) => {
+                                return authorData.data.data;
+                            });
+                            details.relationships.authors = authorsDetails;
 
-                        Promise.all(comments.map((comment) => {
-                            return axios.get(`${apiRootPath}/comments/${comment.id}?format=vnd.api%2Bjson`)
-                        }))
+                            return Promise.all(comments.map((comment) => {
+                                return axios.get(`${apiRootPath}/comments/${comment.id}?format=vnd.api%2Bjson`)
+                            }))
+                        })
                         .then((commentsData) => {
                             const commentsDetails = commentsData.map((commentData) => {
                                 return commentData.data.data;
                             });
                             details.relationships.comments = commentsDetails;
-                            axios.get(`${apiRootPath}/blogs/${blog.id}?format=vnd.api%2Bjson`)
-                            .then((res) => {
-                                details.relationships.blog = res.data.data;
-                                dispatch({
-                                    type: actionTypes.GET_ENTRY_DETAILS,
-                                    entryDetails: details
-                                });
-                            })
-                            .catch(err => console.log(err));
+                            return axios.get(`${apiRootPath}/blogs/${blog.id}?format=vnd.api%2Bjson`)
+                        })
+                        .then((res) => {
+                            details.relationships.blog = res.data.data;
+                            dispatch({
+                                type: actionTypes.GET_ENTRY_DETAILS,
+                                entryDetails: details
+                            });
                         })
                         .catch(err => console.log(err));
-                    })
-                    .catch(err => console.log(err));
                 }
                 else {
                     dispatch({
