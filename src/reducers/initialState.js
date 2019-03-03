@@ -4,13 +4,21 @@ const initialState = {
         currentPage: 1,
         pageCount: 1
     },
-    entries: [],
+    entries: {
+        data: [],
+        currentPage: 1,
+        pageCount: 1
+    },
     authors: {
         data: [],
         currentPage: 1,
         pageCount: 1
     },
-    comments: [],
+    comments: {
+        data: [],
+        currentPage: 1,
+        pageCount: 1
+    },
     selectedBlog: {
         id: '',
         details: {

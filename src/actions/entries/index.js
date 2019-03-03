@@ -1,19 +1,33 @@
 import * as actionTypes from './actionTypes';
+import * as progressBarActions from '../progressBar/actionTypes';
 import axios from 'axios';
 
 const apiRootPath = 'http://localhost:8000';
 
-export const getEntries = () => {
+export const getEntries = (page) => {
 
     return (dispatch) => {
-        axios.get(`${apiRootPath}/entries?format=vnd.api%2Bjson`)
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+
+        axios.get(`${apiRootPath}/entries?format=vnd.api%2Bjson&page%5Bnumber%5D=${page}`)
             .then((res) => {
                 dispatch({
                     type: actionTypes.GET_ENTRIES,
-                    entries: res.data.data
+                    entries: {
+                        data: res.data.data,
+                        currentPage: res.data.meta.pagination.page,
+                        pageCount: res.data.meta.pagination.pages
+                    }
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }
 
@@ -36,6 +50,10 @@ export const getEntryDetails = (id) => {
     };
 
     return (dispatch) => {
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+        
         axios.get(`${apiRootPath}/entries/${id}?format=vnd.api%2Bjson`)
             .then((res) => {
                 details.attributes = res.data.data.attributes;
@@ -72,7 +90,12 @@ export const getEntryDetails = (id) => {
                                 entryDetails: details
                             });
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => console.log(err))
+                        .finally(() => {
+                            dispatch({
+                                type: progressBarActions.ASYNC_ACTION_END
+                            });
+                        });
                 }
                 else {
                     dispatch({
@@ -81,6 +104,11 @@ export const getEntryDetails = (id) => {
                     });
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }

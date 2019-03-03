@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getComments, setSelectedComment } from '../../actions/comments';
+import Pagination from '../pagination';
 class CommentsList extends Component {
     componentDidMount() {
-        this.props.getComments();
+        const defaultPageNumber = 1;
+        this.props.getComments(defaultPageNumber);
     };
 
     handleCommentSelection(id) {
         this.props.setSelectedComment(id);
     }
+
+    handlePageSelection(pageNum) {
+        this.props.getComments(pageNum);
+    }
+
 
     render() {
         return (
@@ -29,7 +36,7 @@ class CommentsList extends Component {
 
                             <tbody>
                                 {
-                                    this.props.comments && this.props.comments.map((comment, i) => {
+                                    this.props.comments.data && this.props.comments.data.map((comment, i) => {
                                         return (
                                             <tr key={i}>
                                                 <td><Link to={`/comments/${comment.id}?format=vnd.api%2Bjson`} onClick={this.handleCommentSelection.bind(this, comment.id)}>{comment.id}</Link></td>
@@ -42,12 +49,11 @@ class CommentsList extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ul className="pagination">
-                        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
-                        <li className="active grey darken-2"><a href="#!">1</a></li>
-                        <li><a href="#!">2</a></li>
-                        <li className="waves-effect"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
-                    </ul>
+                    <Pagination
+                        currentPage={this.props.comments.currentPage}
+                        pageCount={this.props.comments.pageCount}
+                        pageSelect={this.handlePageSelection.bind(this)}>
+                    </Pagination>
                 </div>
             </>
         );

@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getEntries, setSelectedEntry } from '../../actions/entries';
+import Pagination from '../pagination';
 class EntriesList extends Component {
     componentDidMount() {
-        this.props.getEntries();
+        const defaultPageNumber = 1;
+        this.props.getEntries(defaultPageNumber);
     };
 
     handleEntrySelection(id) {
         this.props.setSelectedEntry(id);
     }
+
+    handlePageSelection(pageNum) {
+        this.props.getEntries(pageNum);
+    }
+
 
     render() {
         return (
@@ -32,7 +39,7 @@ class EntriesList extends Component {
 
                             <tbody>
                                 {
-                                    this.props.entries && this.props.entries.map((entry, i) => {
+                                    this.props.entries.data && this.props.entries.data.map((entry, i) => {
                                         return (
                                             <tr key={i}>
                                                 <td><Link to={`/entries/${entry.id}?format=vnd.api%2Bjson`} onClick={this.handleEntrySelection.bind(this, entry.id)}>{entry.id}</Link></td>
@@ -48,12 +55,11 @@ class EntriesList extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ul className="pagination">
-                        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
-                        <li className="active grey darken-2"><a href="#!">1</a></li>
-                        <li><a href="#!">2</a></li>
-                        <li className="waves-effect"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
-                    </ul>
+                    <Pagination
+                        currentPage={this.props.entries.currentPage}
+                        pageCount={this.props.entries.pageCount}
+                        pageSelect={this.handlePageSelection.bind(this)}>
+                    </Pagination>
                 </div>
             </>
         );
