@@ -1,10 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getEntries } from '../../actions/entries';
+import { getEntries, setSelectedEntry } from '../../actions/entries';
 class EntriesList extends Component {
     componentDidMount() {
         this.props.getEntries();
     };
+
+    handleEntrySelection(id) {
+        this.props.setSelectedEntry(id);
+    }
 
     render() {
         return (
@@ -30,11 +35,11 @@ class EntriesList extends Component {
                                 this.props.entries && this.props.entries.map((entry , i) => {
                                 return ( 
                                     <tr key={i}>
-                                        <td>{entry.id}</td>
+                                        <td><Link to={`/entries/${entry.id}?format=vnd.api%2Bjson`} onClick={this.handleEntrySelection.bind(this, entry.id)}>{entry.id}</Link></td>
                                         <td>{entry.attributes.headline}</td>
                                         <td>{entry.attributes.bodyText}</td>
-                                        <td>{entry.attributes.modDate}</td>
                                         <td>{entry.attributes.pubDate}</td>
+                                        <td>{entry.attributes.modDate}</td>
                                     </tr>
                                 );
                             })}
@@ -61,4 +66,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { getEntries })(EntriesList);
+export default connect(mapStateToProps, { getEntries, setSelectedEntry })(EntriesList);

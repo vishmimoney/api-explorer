@@ -53,8 +53,8 @@ class AuthorsDetails extends Component {
                                                     <td>{entry.id}</td>
                                                     <td>{entry.attributes.headline}</td>
                                                     <td>{entry.attributes.bodyText}</td>
-                                                    <td>{entry.attributes.modDate}</td>
                                                     <td>{entry.attributes.pubDate}</td>
+                                                    <td>{entry.attributes.modDate}</td>
                                                 </tr>
                                             );
                                         })}
