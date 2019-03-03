@@ -14,7 +14,16 @@ class EntriesDetails extends Component {
             <>
                 <div className="row">
                     <div className="col s12 m12">
-                        <h4>{this.props.selectedEntry.details.attributes && this.props.selectedEntry.details.attributes.name}</h4>
+                        <h4>Entry ID: {this.props.selectedEntry.id}</h4>
+                        {
+                            this.props.selectedEntry.details.attributes &&
+                            <>
+                                <div>Headline: {this.props.selectedEntry.details.attributes.headline}</div>
+                                <div>Body: {this.props.selectedEntry.details.attributes.bodyText}</div>
+                                <div>Published Date: {this.props.selectedEntry.details.attributes.pubDate}</div>
+                                <div>Modified Date: {this.props.selectedEntry.details.attributes.modDate}</div>
+                            </>
+                        }
                     </div>
                     <div className="col s12 m12">
                         <div className="divider"></div>

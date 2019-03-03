@@ -14,7 +14,13 @@ class AuthorsDetails extends Component {
             <>
                 <div className="row">
                     <div className="col s12 m12">
-                        <h4>{this.props.selectedAuthor.details.attributes && this.props.selectedAuthor.details.attributes.name}</h4>
+                        <h4>Author ID: {this.props.selectedAuthor.id}</h4>
+                        {this.props.selectedAuthor.details.attributes &&
+                            <>
+                                <div>Name: {this.props.selectedAuthor.details.attributes.name}</div>
+                                <div>Email: {this.props.selectedAuthor.details.attributes.email}</div>
+                            </>
+                        }
                     </div>
                     <div className="col s12 m12">
                         <div className="divider"></div>

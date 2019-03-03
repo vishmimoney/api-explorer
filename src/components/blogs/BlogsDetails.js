@@ -14,7 +14,10 @@ class BlogsDetails extends Component {
             <>
                 <div className="row">
                     <div className="col s12 m12">
-                        <h4>{this.props.selectedBlog.details.attributes && this.props.selectedBlog.details.attributes.name}</h4>
+                        <h4>Blog ID: {this.props.selectedBlog.id}</h4>
+                        {this.props.selectedBlog.details.attributes &&
+                            <div>Name: {this.props.selectedBlog.details.attributes.name}</div>
+                        }
                     </div>
                     <div className="col s12 m12">
                         <div className="divider"></div>

@@ -14,7 +14,11 @@ class CommentsDetails extends Component {
             <>
                 <div className="row">
                     <div className="col s12 m12">
-                        <h4>{this.props.selectedComment.details.attributes && this.props.selectedComment.details.attributes.body}</h4>
+                        <h4>Comment ID: {this.props.selectedComment.id}</h4>
+                        {
+                            this.props.selectedComment.details.attributes &&
+                            <div>Comment: {this.props.selectedComment.details.attributes.body}</div>
+                        }
                     </div>
                     <div className="col s12 m12">
                         <div className="divider"></div>
