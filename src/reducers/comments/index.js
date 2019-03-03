@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actions/comments/actionTypes';
 import initialState from '../initialState';
 
-const commentsReducer = (state = initialState.comments, action) => {
+export const commentsReducer = (state = initialState.comments, action) => {
     switch(action.type) {
         case actionTypes.GET_COMMENTS: 
             return action.comments;
@@ -10,4 +10,13 @@ const commentsReducer = (state = initialState.comments, action) => {
     }
 }
 
-export default commentsReducer;
+export const selectedCommentReducer = (state = initialState.selectedComment, action) => {
+    switch(action.type) {
+        case actionTypes.SET_SELECTED_COMMENT: 
+            return {...state, id: action.selectedComment};
+        case actionTypes.GET_COMMENT_DETAILS:
+            return {...state, details: action.commentDetails};   
+        default:
+            return state;    
+    }
+}

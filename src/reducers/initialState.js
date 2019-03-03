@@ -43,7 +43,7 @@ const initialState = {
         id: '',
         details: {
             attributes: {
-                comment: ''
+                body: ''
             },
             relationships: {
                 author: {},

@@ -1,10 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Link } from  'react-router-dom';
 import { connect } from 'react-redux';
-import { getComments } from '../../actions/comments';
+import { getComments, setSelectedComment } from '../../actions/comments';
 class CommentsList extends Component {
     componentDidMount() {
         this.props.getComments();
     };
+
+    handleCommentSelection(id) {
+        this.props.setSelectedComment(id);
+    }
 
     render() {
         return (
@@ -27,7 +32,7 @@ class CommentsList extends Component {
                                 this.props.comments && this.props.comments.map((comment , i) => {
                                 return ( 
                                     <tr key={i}>
-                                        <td>{comment.id}</td>
+                                        <td><Link to={`/comments/${comment.id}?format=vnd.api%2Bjson`} onClick={this.handleCommentSelection.bind(this, comment.id)}>{comment.id}</Link></td>
                                         <td>{comment.attributes.body}</td>
                                     </tr>
                                 );
@@ -55,4 +60,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, { getComments })(CommentsList);
+export default connect(mapStateToProps, { getComments, setSelectedComment })(CommentsList);
