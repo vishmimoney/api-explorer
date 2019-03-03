@@ -2,6 +2,7 @@ import { blogsReducer, selectedBlogReducer } from './blogs';
 import { entriesReducer, selectedEntryReducer } from './entries';
 import { authorsReducer, selectedAuthorReducer } from './authors';
 import { commentsReducer, selectedCommentReducer }from './comments';
+import progressBarReducer from './progressBar';
 
 import { combineReducers } from 'redux';
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     selectedBlog: selectedBlogReducer,
     selectedEntry: selectedEntryReducer,
     selectedAuthor: selectedAuthorReducer,
-    selectedComment: selectedCommentReducer
+    selectedComment: selectedCommentReducer,
+    progressBar: progressBarReducer
 });
 
 export default rootReducer;

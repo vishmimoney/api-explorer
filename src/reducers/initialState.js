@@ -50,6 +50,9 @@ const initialState = {
                 entry: {}
             }
         }
+    },
+    progessBarStatus: {
+        inProgress : true
     }
 }
 
