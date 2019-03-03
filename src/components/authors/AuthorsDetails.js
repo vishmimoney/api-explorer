@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getAuthorDetails } from '../../actions/authors';
+
 
 class AuthorsDetails extends Component {
     componentDidMount() {
@@ -73,6 +75,15 @@ class AuthorsDetails extends Component {
         );
         ;
     }
+}
+
+AuthorsDetails.propTypes = {
+    selectedAuthor: PropTypes.object.isRequired,
+    getAuthorDetails: PropTypes.func.isRequired
+}
+
+AuthorsDetails.defaultProps = {
+    selectedAuthor: {}
 }
 
 const mapStateToProps = (state) => {

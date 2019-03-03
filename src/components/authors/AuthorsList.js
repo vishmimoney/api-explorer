@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getAuthors, setSelectedAuthor } from '../../actions/authors';
 import Pagination from '../pagination';
 
@@ -52,14 +53,23 @@ class AuthorsList extends Component {
                 </div>
                 <div className="row">
                     <Pagination
-                            currentPage={this.props.authors.currentPage}
-                            pageCount={this.props.authors.pageCount}
-                            pageSelect={this.handlePageSelection.bind(this)}>
-                        </Pagination>
+                        currentPage={this.props.authors.currentPage}
+                        pageCount={this.props.authors.pageCount}
+                        pageSelect={this.handlePageSelection.bind(this)}>
+                    </Pagination>
                 </div>
             </>
         );
     }
+}
+
+AuthorsList.propTypes = {
+    authors: PropTypes.object.isRequired,
+    getAuthors: PropTypes.func
+}
+
+AuthorsList.defaultProps = {
+    authors: {}
 }
 
 const mapStateToProps = (state) => {

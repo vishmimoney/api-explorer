@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getCommentDetails } from '../../actions/comments';
 
 class CommentsDetails extends Component {
@@ -58,6 +59,15 @@ class CommentsDetails extends Component {
         );
         ;
     }
+}
+
+CommentsDetails.propTypes = {
+    selectedComment: PropTypes.object.isRequired,
+    getCommentDetails: PropTypes.func.isRequired
+}
+
+CommentsDetails.defaultProps = {
+    selectedComment: {}
 }
 
 const mapStateToProps = (state) => {

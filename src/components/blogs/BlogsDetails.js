@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getBlogDetails } from '../../actions/blogs';
 
 class BlogsDetails extends Component {
@@ -39,6 +40,15 @@ class BlogsDetails extends Component {
             </>
         );
     }
+}
+
+BlogsDetails.propTypes = {
+    selectedBlog: PropTypes.object.isRequired,
+    getBlogDetails: PropTypes.func.isRequired
+}
+
+BlogsDetails.defaultProps = {
+    selectedBlog: {}
 }
 
 const mapStateToProps = (state) => {

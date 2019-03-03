@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getComments, setSelectedComment } from '../../actions/comments';
 import Pagination from '../pagination';
 class CommentsList extends Component {
@@ -58,6 +59,15 @@ class CommentsList extends Component {
             </>
         );
     }
+}
+
+CommentsList.propTypes = {
+    comments: PropTypes.object.isRequired,
+    getComments: PropTypes.func
+}
+
+CommentsList.defaultProps = {
+    comments: {}
 }
 
 const mapStateToProps = (state) => {

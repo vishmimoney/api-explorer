@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getEntries, setSelectedEntry } from '../../actions/entries';
 import Pagination from '../pagination';
 class EntriesList extends Component {
@@ -64,6 +65,15 @@ class EntriesList extends Component {
             </>
         );
     }
+}
+
+EntriesList.propTypes = {
+    entries: PropTypes.object.isRequired,
+    getEntries: PropTypes.func
+}
+
+EntriesList.defaultProps = {
+    entries: {}
 }
 
 const mapStateToProps = (state) => {

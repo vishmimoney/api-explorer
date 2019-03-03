@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getBlogs, setSelectedBlog } from '../../actions/blogs';
 import Pagination from '../pagination';
 
@@ -58,6 +59,15 @@ class BlogsList extends Component {
             </>
         );
     }
+}
+
+BlogsList.propTypes = {
+    blogs: PropTypes.object.isRequired,
+    getblogs: PropTypes.func
+}
+
+BlogsList.defaultProps = {
+    blogs: {}
 }
 
 const mapStateToProps = (state) => {

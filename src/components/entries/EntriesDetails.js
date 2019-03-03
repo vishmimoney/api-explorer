@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getEntryDetails } from '../../actions/entries';
 
 class EntriesDetails extends Component {
@@ -102,6 +103,15 @@ class EntriesDetails extends Component {
         );
         ;
     }
+}
+
+EntriesDetails.propTypes = {
+    selectedEntry: PropTypes.object.isRequired,
+    getEntryDetails: PropTypes.func.isRequired
+}
+
+EntriesDetails.defaultProps = {
+    selectedEntry: {}
 }
 
 const mapStateToProps = (state) => {
