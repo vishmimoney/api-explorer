@@ -1,19 +1,32 @@
 import * as actionTypes from './actionTypes';
+import * as progressBarActions from '../progressBar/actionTypes';
 import axios from 'axios';
 
 const apiRootPath = 'http://localhost:8000';
 
-export const getAuthors = () => {
-
+export const getAuthors = (page) => {
     return (dispatch) => {
-        axios.get(`${apiRootPath}/authors?format=vnd.api%2Bjson`)
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+
+        axios.get(`${apiRootPath}/authors?format=vnd.api%2Bjson&page%5Bnumber%5D=${page}`)
             .then((res) => {
                 dispatch({
                     type: actionTypes.GET_AUTHORS,
-                    authors: res.data.data
+                    authors: {
+                        data: res.data.data,
+                        currentPage: res.data.meta.pagination.page,
+                        pageCount: res.data.meta.pagination.pages
+                    }
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }
 
@@ -33,6 +46,10 @@ export const getAuthorDetails = (id) => {
     let commentsUrl, entriesUrl;
 
     return (dispatch) => {
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+
         axios.get(`${apiRootPath}/authors/${id}?format=vnd.api%2Bjson`)
             .then((res) => {
                 details.attributes = res.data.data.attributes;
@@ -53,6 +70,11 @@ export const getAuthorDetails = (id) => {
                     authorDetails: details
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }
