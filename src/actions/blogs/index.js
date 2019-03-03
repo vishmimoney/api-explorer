@@ -1,19 +1,33 @@
 import * as actionTypes from './actionTypes';
+import * as progressBarActions from '../progressBar/actionTypes';
 import axios from 'axios';
 
 const apiRootPath = 'http://localhost:8000';
 
-export const getBlogs = () => {
+export const getBlogs = (page) => {
 
     return (dispatch) => {
-        axios.get(`${apiRootPath}/blogs?format=vnd.api%2Bjson`)
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+
+        axios.get(`${apiRootPath}/blogs?format=vnd.api%2Bjson&page%5Bnumber%5D=${page}`)
             .then((res) => {
                 dispatch({
                     type: actionTypes.GET_BLOGS,
-                    blogs: res.data.data
+                    blogs: {
+                        data: res.data.data,
+                        currentPage: res.data.meta.pagination.page,
+                        pageCount: res.data.meta.pagination.pages
+                    }
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }
 
@@ -27,6 +41,10 @@ export const setSelectedBlog = (id) => {
 export const getBlogDetails = (id) => {
 
     return (dispatch) => {
+        dispatch({
+            type: progressBarActions.ASYNC_ACTION_START
+        });
+
         axios.get(`${apiRootPath}/blogs/${id}?format=vnd.api%2Bjson`)
             .then((res) => {
                 dispatch({
@@ -39,6 +57,11 @@ export const getBlogDetails = (id) => {
                     }
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => {
+                dispatch({
+                    type: progressBarActions.ASYNC_ACTION_END
+                });
+            });
     };
 }

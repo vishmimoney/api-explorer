@@ -1,7 +1,15 @@
 const initialState = {
-    blogs: [],
+    blogs: {
+        data: [],
+        currentPage: 1,
+        pageCount: 1
+    },
     entries: [],
-    authors: [],
+    authors: {
+        data: [],
+        currentPage: 1,
+        pageCount: 1
+    },
     comments: [],
     selectedBlog: {
         id: '',
